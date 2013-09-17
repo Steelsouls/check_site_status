@@ -31,4 +31,4 @@ I run this with Ubuntu 12.04 and 13.04, and my favorite mail server is Postfix. 
 You can install these manually or by issuing 'bundle install' inside the script's directory.
 
 ## License
-Copyright (C) 2013 [Brandon Rubin](http://brandonrubin.me), [MIT License](https://github.com/steelsouls/check_site_status/blob/master/LICENSE)
+Copyright (C) 2013 [Brandon Rubin](http://brandonrubin.me) (steelsouls), [MIT License](https://github.com/steelsouls/check_site_status/blob/master/LICENSE)
