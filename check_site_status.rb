@@ -9,14 +9,15 @@ require 'pony' # send mail
 # Constant Declarations
 URL = ARGV[0]
 EMAIL_TO = ARGV[1]
-EMAIL_FROM = ARGV[2]
+EMAIL_FROM = ENV['USER_EMAIL']
 EMAIL_SUBJECT = "[DOWN] #{URL}"
 EMAIL_BODY = Time.new.strftime("%F %T [DOWN] #{URL}")
-LOG_DIR = File.expand_path(ARGV[3] || "~/.site_status_log")
+LOG_DIR = File.expand_path(ARGV[3] || "~/.site_status_logs")
 
 # Usage Validation
-if ARGV.length < 4
-  puts "Usage: ruby check_site_status.rb <URL> <email_to> <email_from> [alternate_log_directory]"
+if ARGV.length < 2
+  puts "Usage: ruby check_site_status.rb <URL> <email_to> [alternate_log_directory]"
+  exit(0)
 end
 
 # Setup Methods
@@ -34,7 +35,8 @@ def http_connection
 end
 
 def log(status)
-  File.open(File.join(LOG_DIR, "#{uri.host}.log"), 'a') do |f|
+  log_file = File.join(LOG_DIR, "#{uri.host.gsub('.', '_')}.log")
+  File.open(log_file, 'a') do |f|
     f.puts Time.now.strftime("%F %T [#{status}] #{URL}")
   end
 end
@@ -49,8 +51,7 @@ end
 
 # Start Execution of Script
 begin
-  site_status_directory = File.expand_path("~/.site_status_logs")
-  Dir.mkdir(site_status_directory) unless Dir.exist?(site_status_directory)
+  Dir.mkdir(LOG_DIR) unless Dir.exist?(LOG_DIR)
 rescue
   puts "Could not create directory - #{LOG_DIR}"
 end
@@ -64,5 +65,5 @@ begin
   end
 rescue Errno::ENOENT, Faraday::Error::ConnectionFailed
   log("DOWN")
-  send_email
+  send_email unless USER_EMAIL == ''
 end
