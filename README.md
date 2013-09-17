@@ -23,12 +23,13 @@ In order to call Ruby files from your crontab, you must load an environment cont
 In order for email to work, you must set up a local mail server and 
 add a $USER_EMAIL environment variable.
 I run this with Ubuntu 12.04 and 13.04, and my favorite mail server is Postfix. All you really need to get working is outgoing mail, which I've found to be easier than incoming, as you don't have to open any ports, set up spam filtering, or worry about what type of mailbox you have.
-[Ubuntu Official Postfix Basic Setup](https://help.ubuntu.com/community/PostfixBasicSetupHowto "Setup Postfix")
+* [Official Ubuntu Tutorial - Postfix Basic Setup](https://help.ubuntu.com/community/PostfixBasicSetupHowto "Setup Postfix")
 
 ## Dependencies
 * Faraday gem
 * Pony gem
-You can install these manually or by issuing 'bundle install' inside the script's directory.
+
+These can be installed manually or by issuing 'bundle install' inside the script's directory.
 
 ## License
 Copyright (C) 2013 [Brandon Rubin](http://brandonrubin.me) (steelsouls), [MIT License](https://github.com/steelsouls/check_site_status/blob/master/LICENSE)
