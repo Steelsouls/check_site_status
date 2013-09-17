@@ -2,9 +2,15 @@
 
 require 'uri'
 require 'faraday' # perform http requests
-require 'pony' # send mail
+require 'pony' # send email
 
-# Description goes here in times of need
+# This little script checks whether or not a website can be reached.
+# It then logs the result to a text file and, if provided, emails an alert
+# when the site is down.
+# Call this script from Cron to set up a site monitor so you can always
+# know when your site isn't up!
+# In order for email to work, you must set up a local mail server and 
+# add a $USER_EMAIL environment variable.
 
 # Constant Declarations
 URL = ARGV[0]
@@ -15,8 +21,8 @@ EMAIL_BODY = Time.new.strftime("%F %T [DOWN] #{URL}")
 LOG_DIR = File.expand_path(ARGV[3] || "~/.site_status_logs")
 
 # Usage Validation
-if ARGV.length < 2
-  puts "Usage: ruby check_site_status.rb <URL> <email_to> [alternate_log_directory]"
+if ARGV.length < 1
+  puts "Usage: ruby check_site_status.rb <URL> [email_to] [alternate_log_directory]"
   exit(0)
 end
 
@@ -62,6 +68,7 @@ begin
     log("UP")
   else
     puts "Invalid URL '#{URL}'"
+    puts "Please enter an http:// or https:// URL"
   end
 rescue Errno::ENOENT, Faraday::Error::ConnectionFailed
   log("DOWN")
