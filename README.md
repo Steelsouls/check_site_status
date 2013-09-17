@@ -7,7 +7,7 @@ when the site is down.
 ## Usage
 	$ cd .../check_site_status
 	$ bundle install
-	$ ruby check_site_status.rb <URL> [email_to] [alternate_log_directory]
+	$ ruby lib/check_site_status.rb <URL> [email_to] [alternate_log_directory]
 
 ## Cron
 Call this script from Cron to set up a site monitor so you can always
