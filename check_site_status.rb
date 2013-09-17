@@ -1,9 +1,5 @@
 #!/usr/bin/env ruby
 
-require 'uri'
-require 'faraday' # perform http requests
-require 'pony' # send email
-
 # This little script checks whether or not a website can be reached.
 # It then logs the result to a text file and, if provided, emails an alert
 # when the site is down.
@@ -11,6 +7,10 @@ require 'pony' # send email
 # know when your site isn't up!
 # In order for email to work, you must set up a local mail server and 
 # add a $USER_EMAIL environment variable.
+
+require 'uri'
+require 'faraday' # perform http requests
+require 'pony' # send email
 
 # Constant Declarations
 URL = ARGV[0]
