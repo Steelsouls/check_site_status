@@ -21,7 +21,7 @@ EMAIL_BODY = Time.new.strftime("%F %T [DOWN] #{URL}")
 LOG_DIR = File.expand_path(ARGV[3] || "~/.site_status_logs")
 
 # Usage Validation
-if ARGV.length < 1
+if ARGV[0] == nil
   puts "Usage: ruby check_site_status.rb <URL> [email_to] [alternate_log_directory]"
   exit(0)
 end
@@ -72,5 +72,5 @@ begin
   end
 rescue Errno::ENOENT, Faraday::Error::ConnectionFailed
   log("DOWN")
-  send_email unless USER_EMAIL == ''
+  send_email unless EMAIL_TO == nil
 end
